@@ -67,10 +67,12 @@ El hero muestra una **sala 3D construida con CSS** (perspectiva real, sin WebGL)
 Para usar una escena propia de [Spline](https://spline.design): en Spline, *Export → Code → React*, copia la URL `.splinecode` y defínela en `.env`:
 
 ```
-VITE_SPLINE_SCENE_URL=https://prod.spline.design/XXXXXXXX/scene.splinecode
+VITE_SPLINE_SCENE_URL=<pega aquí la URL .splinecode de tu escena>
 ```
 
 La escena solo se descarga en escritorio (puntero fino, sin "reducir movimiento" ni ahorro de datos), en diferido. Mientras carga, o si falla o tarda más de 15 s, se mantiene la sala CSS.
+
+Mientras no tengas una escena, deja la variable vacía: la portada usa la sala CSS y no descarga nada de Spline. Si el valor no es una URL `https://` válida, se ignora.
 
 ---
 

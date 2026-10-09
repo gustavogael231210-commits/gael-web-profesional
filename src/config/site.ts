@@ -1,4 +1,24 @@
 /**
+ * URL de la escena de Spline tomada de VITE_SPLINE_SCENE_URL.
+ * Solo se acepta una URL https válida; si falta o está mal escrita se devuelve ''
+ * y la portada usa la sala 3D hecha con CSS.
+ */
+function readSplineSceneUrl(): string {
+  const raw = (import.meta.env.VITE_SPLINE_SCENE_URL as string | undefined)?.trim() ?? ''
+  if (!raw) return ''
+  try {
+    const url = new URL(raw)
+    if (url.protocol === 'https:') return url.toString()
+  } catch {
+    // Valor no válido: se ignora.
+  }
+  if (import.meta.env.DEV) {
+    console.warn(`VITE_SPLINE_SCENE_URL no es una URL https válida ("${raw}"); se usa la sala 3D en CSS.`)
+  }
+  return ''
+}
+
+/**
  * Configuración central del sitio.
  * Cambia aquí los datos de contacto y la marca; el resto del sitio los lee de este archivo.
  */
@@ -31,7 +51,7 @@ export const siteConfig = {
    * Escena 3D de Spline (.splinecode) para el hero. Se toma de la variable VITE_SPLINE_SCENE_URL.
    * Si está vacía, se muestra la sala 3D construida con CSS (más ligera).
    */
-  splineSceneUrl: (import.meta.env.VITE_SPLINE_SCENE_URL as string | undefined)?.trim() ?? '',
+  splineSceneUrl: readSplineSceneUrl(),
 } as const
 
 export const navLinks = [
