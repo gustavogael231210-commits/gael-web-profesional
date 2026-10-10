@@ -1,136 +1,161 @@
-# NÓRDICA HOME — Tienda web de muebles
+# NÓRDICA HOME — Demostración interactiva
 
 > Diseño que transforma tu espacio
 
-Sitio web premium para una tienda de muebles modernos: hero con sala 3D interactiva, catálogo con búsqueda, filtros y orden por precio, fichas de producto, lista de cotización y consultas por WhatsApp. Precios en pesos mexicanos (MXN).
+**NÓRDICA HOME es una demostración local.** No es un sitio publicado ni un negocio real: la marca, los productos, los precios, las imágenes y el número de contacto son ficticios. No hay pagos, pedidos ni envío de datos.
+
+La demo incluye: portada con sala 3D interactiva, catálogo con búsqueda, filtros y orden por precio, fichas de producto, "Mi selección", animaciones, menú móvil y botones de WhatsApp que muestran una **vista previa del mensaje** (no abren WhatsApp).
 
 **Stack:** React 19 · TypeScript · Vite · Tailwind CSS 4 · shadcn/ui (Radix) · Framer Motion · Lucide · Spline (opcional)
 
 ---
 
-## Inicio rápido
+## Opción A — Abrir el archivo HTML (lo más fácil)
 
-Requisitos: Node.js 20.19+ o 22.12+.
+No necesitas instalar nada.
+
+1. Descarga el archivo **`demo/nordica-home-demo.html`** (está en esta carpeta del proyecto).
+2. Haz doble clic sobre él. Se abrirá en tu navegador (Chrome, Edge, Firefox o Safari).
+3. ¡Listo! Ya puedes probar todo.
+
+Notas:
+- Las **fotos** y las **tipografías** se cargan de internet (Unsplash y Google Fonts). Sin conexión, la demo sigue funcionando: las fotos se sustituyen por un recuadro con su descripción y el texto usa una tipografía del sistema.
+- Este archivo no incluye Spline: siempre muestra la **sala 3D hecha con CSS**.
+- "Mi selección" se guarda en tu navegador. Algunos navegadores (sobre todo Safari) limitan eso en archivos abiertos con doble clic; si pasa, la lista funciona pero se vacía al recargar.
+
+## Opción B — Ejecutar el proyecto en tu computadora
+
+### 1. Instala Node.js (una sola vez)
+Descarga la versión **LTS** desde [nodejs.org](https://nodejs.org) e instálala. Se necesita Node 20.19 o superior (o 22.12+). Para comprobarlo, abre una terminal y escribe:
 
 ```bash
-npm install
-npm run dev        # servidor de desarrollo en http://localhost:5173
+node -v
 ```
 
-| Comando             | Qué hace                                              |
-| ------------------- | ----------------------------------------------------- |
-| `npm run dev`       | Desarrollo con recarga en caliente                    |
-| `npm run build`     | Verifica TypeScript y genera la versión de producción en `dist/` |
-| `npm run preview`   | Sirve `dist/` localmente para revisarlo               |
-| `npm test`          | Pruebas unitarias (WhatsApp, filtros, precios)        |
-| `npm run lint`      | Revisión de código con oxlint                         |
-| `npm run typecheck` | Solo verificación de tipos                            |
+### 2. Descarga el proyecto
+- **Con Git:**
+  ```bash
+  git clone -b claude/add-ui-ux-pro-max-skill https://github.com/gustavogael231210-commits/gael-web-profesional.git
+  cd gael-web-profesional
+  ```
+- **Sin Git:** en GitHub, elige la rama `claude/add-ui-ux-pro-max-skill`, pulsa **Code → Download ZIP**, descomprime y abre una terminal dentro de la carpeta.
+
+### 3. Instala las dependencias (una sola vez)
+```bash
+npm install
+```
+
+### 4. Inicia la demo
+```bash
+npm run dev
+```
+La terminal mostrará una dirección como `http://localhost:5173/`. Ábrela en tu navegador (o pulsa `o` + Enter en la terminal).
+
+### 5. Para detenerla
+En la terminal, pulsa **Ctrl + C**.
+
+### Probarla en tu celular (opcional)
+Con la computadora y el celular en la **misma red Wi-Fi**:
+```bash
+npm run dev -- --host
+```
+Abre en el celular la dirección que aparece como **Network** (por ejemplo `http://192.168.1.20:5173/`). Solo es visible dentro de tu red; no se publica en internet.
+
+### Versión optimizada (opcional)
+```bash
+npm run demo
+```
+Compila la versión final y la abre en `http://localhost:4173/`.
 
 ---
 
-## Dónde cambiar cada cosa
+## Qué probar
 
-| Quiero cambiar…                         | Archivo                                   |
-| --------------------------------------- | ----------------------------------------- |
-| **Número de WhatsApp**                  | `src/config/site.ts` → `whatsappNumber`   |
-| Correo, zona de servicio, aviso de demo | `src/config/site.ts`                      |
-| **Productos, precios, medidas, colores, imágenes** | `src/data/products.ts`         |
-| Categorías                              | `src/data/products.ts` → `categories`     |
-| Colecciones e imágenes de inspiración   | `src/data/collections.ts`                 |
-| Textos de los mensajes de WhatsApp      | `src/lib/whatsapp.ts`                     |
-| Colores y tipografías de la marca       | `src/index.css` (sección `:root`)         |
-| Título, descripción SEO, Open Graph     | `index.html`                              |
-| Escena 3D de Spline                     | Variable `VITE_SPLINE_SCENE_URL` (ver abajo) |
+- **Portada:** mueve el cursor sobre la sala 3D (en el celular se balancea sola). Botones "Explorar colección" y "Descubrir nuestros muebles".
+- **Menú:** enlaces de navegación; en pantalla estrecha, el botón ☰ abre el menú móvil.
+- **Búsqueda:** icono de lupa del menú (resultados en vivo; Enter filtra el catálogo) o el buscador del catálogo. Funciona sin acentos: "sofa", "napoles".
+- **Filtros:** categorías, "Espacios pequeños" y orden por precio. "Limpiar filtros" lo deja todo como al principio.
+- **Colecciones:** al pulsar una, el catálogo se filtra solo.
+- **Fichas de producto:** "Ver detalles" abre la ficha; elige un color; Esc o la X la cierran.
+- **Mi selección:** "Agregar a mi selección" en una ficha y luego el icono de bolsa del menú; cambia cantidades.
+- **WhatsApp (modo demostración):** cualquier botón de WhatsApp muestra el mensaje que se enviaría, con el producto y el color elegido. Nada se envía.
+- **Contacto:** envía el formulario vacío para ver la validación; complétalo para ver la vista previa del mensaje.
+- **Accesibilidad:** navegación con Tab; si tu sistema tiene activado "reducir movimiento", las animaciones se desactivan.
 
-### WhatsApp
+---
 
-`5210000000000` es un **marcador**. Sustitúyelo en `src/config/site.ts` por el número real en formato internacional, solo dígitos (México: `52` + `1` + 10 dígitos, p. ej. `5215512345678`). Todos los botones usan ese valor.
+## Regenerar el archivo HTML independiente
 
-### Productos e imágenes
+Si cambias algo del proyecto y quieres actualizar `demo/nordica-home-demo.html`:
 
-Cada producto en `src/data/products.ts` tiene nombre, artículo (`el`/`la`, para los mensajes), categoría, precio en MXN (y precio anterior opcional para promociones), descripción, materiales, medidas en cm, colores, etiqueta opcional e imagen.
-
-Las imágenes actuales son **fotografías ilustrativas de Unsplash**, no productos reales de la marca. Para usar fotos propias, colócalas en `public/images/` y usa:
-
-```ts
-image: { src: '/images/sofa-oslo.webp', alt: 'Sofá Oslo color arena en una sala luminosa' },
+```bash
+npm run build:standalone
 ```
 
-Si una imagen no carga, el sitio muestra un respaldo elegante con el texto alternativo.
+Incrusta todo el JavaScript y el CSS en ese único archivo.
 
-Cuando cargues el catálogo real, cambia `showDemoNotice` a `false` en `src/config/site.ts`.
+## Comandos
 
-### Escena 3D
+| Comando                    | Qué hace                                                    |
+| -------------------------- | ----------------------------------------------------------- |
+| `npm run dev`              | Demo en desarrollo con recarga automática (`localhost:5173`) |
+| `npm run demo`             | Compila y abre la versión optimizada (`localhost:4173`)     |
+| `npm run build:standalone` | Genera `demo/nordica-home-demo.html` (un solo archivo)      |
+| `npm run build`            | Compila la versión optimizada en `dist/`                    |
+| `npm test`                 | Pruebas unitarias                                           |
+| `npm run lint`             | Revisión de código                                          |
+| `npm run typecheck`        | Verificación de tipos                                       |
 
-El hero muestra una **sala 3D construida con CSS** (perspectiva real, sin WebGL). Sigue el cursor en escritorio, se balancea suavemente en móviles y queda estática si el usuario activó "reducir movimiento".
+---
 
-Para usar una escena propia de [Spline](https://spline.design): en Spline, *Export → Code → React*, copia la URL `.splinecode` y defínela en `.env`:
+## Modo demostración
+
+En `src/config/site.ts`, `demoMode: true` hace que los enlaces de WhatsApp muestren una vista previa del mensaje en lugar de abrir WhatsApp. El número `5210000000000` es ficticio.
+
+## Sala 3D y Spline
+
+La portada usa una **sala 3D hecha con CSS** (perspectiva real, sin WebGL). Spline sigue integrado como opción (`src/components/ui/splite.tsx`), pero no hay ninguna escena configurada: la variable `VITE_SPLINE_SCENE_URL` de `.env` está vacía, y así la portada no descarga nada de Spline.
+
+Si algún día quieres probar una escena tuya en local, pega su URL `.splinecode` en `.env`:
 
 ```
 VITE_SPLINE_SCENE_URL=<pega aquí la URL .splinecode de tu escena>
 ```
 
-La escena solo se descarga en escritorio (puntero fino, sin "reducir movimiento" ni ahorro de datos), en diferido. Mientras carga, o si falla o tarda más de 15 s, se mantiene la sala CSS.
+Solo se usa en escritorio. Si la escena falla o tarda más de 15 s, se queda la sala CSS; si el valor no es una URL `https://` válida, se ignora.
 
-Mientras no tengas una escena, deja la variable vacía: la portada usa la sala CSS y no descarga nada de Spline. Si el valor no es una URL `https://` válida, se ignora.
+## Dónde cambiar cada cosa
 
----
+| Quiero cambiar…                          | Archivo                                |
+| ---------------------------------------- | -------------------------------------- |
+| Productos, precios, medidas, colores, fotos | `src/data/products.ts`              |
+| Colecciones e imágenes de inspiración    | `src/data/collections.ts`              |
+| Nombre, eslogan, modo demostración       | `src/config/site.ts`                   |
+| Textos de los mensajes de WhatsApp       | `src/lib/whatsapp.ts`                  |
+| Colores y tipografías                    | `src/index.css` (sección `:root`)      |
 
-## Publicar
+Las fotos son ilustrativas (Unsplash), no productos reales. Para usar fotos propias, ponlas en `public/images/` y usa `image: { src: '/images/mi-foto.webp', alt: '…' }`.
 
-### Netlify
-1. Sube el repositorio a GitHub.
-2. En Netlify: *Add new site → Import from Git* y elige el repositorio. `netlify.toml` ya define `npm run build` y la carpeta `dist`.
-3. En *Site configuration → Environment variables* añade `VITE_SITE_URL` (tu dominio, sin `/` final) y, si la usas, `VITE_SPLINE_SCENE_URL`.
+## Sobre la publicación
 
-### Vercel
-1. En Vercel: *Add New → Project* e importa el repositorio. Detecta Vite automáticamente (build `npm run build`, salida `dist`).
-2. Añade las mismas variables de entorno en *Settings → Environment Variables*.
-
-Cualquier cambio en las variables requiere volver a desplegar.
-
----
-
-## Qué es real y qué es demostrativo
-
-**Funciona de verdad**
-- Búsqueda por nombre (sin importar acentos), filtros por categoría y "espacios pequeños", orden por precio.
-- Fichas de producto en ventana modal accesible, con enlace directo (`/?producto=sofa-oslo`).
-- Enlaces de WhatsApp con mensajes predefinidos y codificados (producto, color, lista de cotización y formulario de contacto).
-- "Mi selección": lista de piezas para cotizar, guardada en el navegador del visitante (`localStorage`).
-
-**Demostrativo / pendiente**
-- Productos, precios, medidas e imágenes son de ejemplo.
-- No hay pagos en línea, inventario, cuentas de cliente ni envío de pedidos: las compras se coordinan por WhatsApp.
-- El formulario de contacto no guarda datos; solo abre WhatsApp con el mensaje.
-
-## Antes de vender muebles reales
-
-- [ ] Número real de WhatsApp en `src/config/site.ts`.
-- [ ] Catálogo real: fotos propias, precios, medidas, materiales y disponibilidad.
-- [ ] `showDemoNotice: false`.
-- [ ] Dominio propio y `VITE_SITE_URL` para las vistas previas en redes.
-- [ ] Aviso de privacidad y términos y condiciones (políticas de entrega, devoluciones y garantía).
-- [ ] Si quieres cobrar en línea: integrar una pasarela (p. ej. Stripe, Mercado Pago o Shopify) y gestión de inventario y pedidos.
-- [ ] Analítica (p. ej. Google Analytics o Plausible) y alta en Google Search Console.
+Este proyecto **no se publica**. Archivos como `netlify.toml`, las etiquetas Open Graph o `robots.txt` se conservan del proyecto original, pero no se usan en la demo local.
 
 ## Estructura
 
 ```
+demo/nordica-home-demo.html  # Demo en un solo archivo (se genera con build:standalone)
 src/
 ├── App.tsx                  # Composición de la página
-├── config/site.ts           # Marca, WhatsApp, Spline
+├── config/site.ts           # Marca, modo demostración, Spline
 ├── data/                    # Productos, categorías y colecciones
 ├── lib/                     # WhatsApp, filtros, formato MXN, imágenes (+ pruebas)
-├── context/                 # Estado del catálogo y de "Mi selección"
+├── context/                 # Catálogo, "Mi selección" y vista previa de WhatsApp
 ├── hooks/                   # Media queries, scroll, sección activa
 └── components/
     ├── ui/                  # shadcn/ui (button, card, dialog, sheet…), splite, spotlight
-    ├── hero/                # Hero, sala 3D CSS, integración con Spline
-    ├── catalog/             # Tarjeta, filtros, modal de producto, precio
+    ├── hero/                # Portada, sala 3D en CSS, integración con Spline
+    ├── catalog/             # Tarjeta, filtros, ficha de producto, precio
     ├── sections/            # Colecciones, destacados, inspiración, nosotros, contacto
-    ├── layout/              # Navbar, buscador, footer, botón flotante
+    ├── layout/              # Menú, buscador, pie de página, botón flotante
     └── quote/               # Panel "Mi selección"
 ```
-
-Los componentes de shadcn/ui están en `src/components/ui` y se configuraron siguiendo su instalación manual (`components.json` incluido), así que `npx shadcn@latest add <componente>` funciona para añadir más.

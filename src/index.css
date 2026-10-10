@@ -1,6 +1,10 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+/* No buscar clases en la skill de Claude ni en la demo HTML ya compilada. */
+@source not '../.claude';
+@source not '../demo';
+
 @custom-variant dark (&:is(.dark *));
 
 /*

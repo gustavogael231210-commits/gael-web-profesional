@@ -15,33 +15,36 @@ import { HowItWorks } from '@/components/sections/how-it-works'
 import { Inspiration } from '@/components/sections/inspiration'
 import { CatalogProvider } from '@/context/catalog-context'
 import { QuoteProvider } from '@/context/quote-context'
+import { WhatsAppProvider } from '@/context/whatsapp-context'
 
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <CatalogProvider>
         <QuoteProvider>
-          <a
-            href="#contenido"
-            className="sr-only z-50 rounded-full bg-charcoal px-4 py-2 text-ivory focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
-          >
-            Saltar al contenido
-          </a>
-          <Navbar />
-          <main id="contenido" tabIndex={-1} className="outline-none">
-            <Hero />
-            <Collections />
-            <Featured />
-            <CatalogSection />
-            <Inspiration />
-            <HowItWorks />
-            <About />
-            <Contact />
-          </main>
-          <Footer />
-          <WhatsAppFab />
-          <ProductDialog />
-          <QuoteSheet />
+          <WhatsAppProvider>
+            <a
+              href="#contenido"
+              className="sr-only z-50 rounded-full bg-charcoal px-4 py-2 text-ivory focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+            >
+              Saltar al contenido
+            </a>
+            <Navbar />
+            <main id="contenido" tabIndex={-1} className="outline-none">
+              <Hero />
+              <Collections />
+              <Featured />
+              <CatalogSection />
+              <Inspiration />
+              <HowItWorks />
+              <About />
+              <Contact />
+            </main>
+            <Footer />
+            <WhatsAppFab />
+            <ProductDialog />
+            <QuoteSheet />
+          </WhatsAppProvider>
         </QuoteProvider>
       </CatalogProvider>
     </MotionConfig>

@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { siteConfig } from '@/config/site'
+import { useWhatsApp } from '@/context/whatsapp-context'
 import { categories } from '@/data/products'
 import { buildWhatsAppUrl, contactMessage, generalInquiryMessage } from '@/lib/whatsapp'
 
@@ -22,6 +23,7 @@ export function Contact() {
   const [form, setForm] = useState({ name: '', city: '', interest: '', message: '' })
   const [errors, setErrors] = useState<Errors>({})
   const [sent, setSent] = useState(false)
+  const { openWhatsApp } = useWhatsApp()
 
   const validate = (data: typeof form): Errors => {
     const next: Errors = {}
@@ -39,8 +41,7 @@ export function Contact() {
       document.getElementById(firstInvalid)?.focus()
       return
     }
-    const url = buildWhatsAppUrl(contactMessage(form))
-    window.open(url, '_blank', 'noopener,noreferrer')
+    openWhatsApp(buildWhatsAppUrl(contactMessage(form)))
     setSent(true)
   }
 
@@ -188,11 +189,15 @@ export function Contact() {
               Enviar por WhatsApp
             </Button>
             <p id="contact-privacy" className="text-xs leading-relaxed text-muted-foreground">
-              Al enviar se abrirá WhatsApp con tu mensaje listo para que lo mandes. Este formulario no guarda ni envía
-              tus datos a ningún servidor.
+              {siteConfig.demoMode
+                ? 'Demostración: al enviar verás una vista previa del mensaje de WhatsApp. No se guarda ni se envía nada.'
+                : 'Al enviar se abrirá WhatsApp con tu mensaje listo para que lo mandes. Este formulario no guarda ni envía tus datos a ningún servidor.'}
             </p>
             <p role="status" className="text-sm text-olive-deep">
-              {sent && 'Abrimos WhatsApp en una pestaña nueva. Si no se abrió, revisa el bloqueador de ventanas emergentes.'}
+              {sent &&
+                (siteConfig.demoMode
+                  ? 'Mensaje preparado. En la demostración se muestra como vista previa.'
+                  : 'Abrimos WhatsApp en una pestaña nueva. Si no se abrió, revisa el bloqueador de ventanas emergentes.')}
             </p>
           </form>
         </Reveal>

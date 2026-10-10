@@ -50,7 +50,7 @@ export function Footer() {
             © {year} {siteConfig.name}. Precios en pesos mexicanos (MXN).
           </p>
           {siteConfig.showDemoNotice && (
-            <p>Catálogo de demostración: productos, precios e imágenes ilustrativos.</p>
+            <p>Demostración local: marca, productos, precios, imágenes y contacto ficticios.</p>
           )}
         </div>
       </div>

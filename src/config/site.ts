@@ -4,6 +4,8 @@
  * y la portada usa la sala 3D hecha con CSS.
  */
 function readSplineSceneUrl(): string {
+  // La demo en un solo archivo HTML no incluye Spline: siempre usa la sala CSS.
+  if (import.meta.env.MODE === 'standalone') return ''
   const raw = (import.meta.env.VITE_SPLINE_SCENE_URL as string | undefined)?.trim() ?? ''
   if (!raw) return ''
   try {
@@ -23,6 +25,12 @@ function readSplineSceneUrl(): string {
  * Cambia aquí los datos de contacto y la marca; el resto del sitio los lee de este archivo.
  */
 export const siteConfig = {
+  /**
+   * MODO DEMOSTRACIÓN (activado): los botones de WhatsApp no abren WhatsApp;
+   * muestran una vista previa del mensaje que se enviaría. Nada sale del navegador.
+   */
+  demoMode: true,
+
   name: 'NÓRDICA HOME',
   slogan: 'Diseño que transforma tu espacio',
   description:

@@ -29,6 +29,18 @@ function readProductParam(): string | null {
   return new URLSearchParams(window.location.search).get(PRODUCT_PARAM)
 }
 
+/**
+ * Cambia la URL sin recargar. Algunos navegadores lo bloquean al abrir la página
+ * como archivo (file://); en ese caso el modal funciona igual, sin enlace directo.
+ */
+function updateHistory(method: 'pushState' | 'replaceState', state: unknown, url: string) {
+  try {
+    window.history[method](state, '', url)
+  } catch {
+    // Sin enlace directo en este navegador; el resto funciona igual.
+  }
+}
+
 function urlWithProduct(slug: string | null): string {
   const url = new URL(window.location.href)
   if (slug) url.searchParams.set(PRODUCT_PARAM, slug)
@@ -51,7 +63,7 @@ export function CatalogProvider({ children }: { children: ReactNode }) {
 
   const openProduct = useCallback((slug: string) => {
     setActiveSlug(slug)
-    window.history.pushState({ nhProduct: slug }, '', urlWithProduct(slug))
+    updateHistory('pushState', { nhProduct: slug }, urlWithProduct(slug))
   }, [])
 
   const closeProduct = useCallback(() => {
@@ -60,7 +72,7 @@ export function CatalogProvider({ children }: { children: ReactNode }) {
       // El modal se abrió desde el sitio: "atrás" devuelve la URL anterior.
       window.history.back()
     } else {
-      window.history.replaceState(null, '', urlWithProduct(null))
+      updateHistory('replaceState', null, urlWithProduct(null))
     }
   }, [])
 
